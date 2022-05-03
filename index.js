@@ -93,12 +93,13 @@ function appMenu() {
                             name: 'role',
                             type: 'list',
                             message: "What is the employee's new role?",
+                            choices: rolesArr
                         },
                     ])
                     .then((res) => {
                         console.log(res);
                         db.query(`employees () VALUES (${res.employee}, ${res.role})`, function (err, results) {
-                            console.log(" updating employees data...")
+                            console.log(" Updating employees data...")
                             console.table(results);
                             console.log("Done");
                         });
