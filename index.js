@@ -73,9 +73,9 @@ function appMenu() {
                     .then((res) => {
                         console.log(res);
                         let roleID = rolesArr.indexOf(res.role);
+                        roleID++;
                         db.query(`INSERT INTO employees (first_name, last_name, role_id, manager_id) VALUES (?,?,?,?)`, [res.firstName, res.lastName, roleID, res.managerId], function (err, results) {
                             console.log("  Adding employees data...")
-                            console.table(results);
                             console.log("Done");
                         });
                         appMenu();
@@ -99,6 +99,7 @@ function appMenu() {
                     .then((res) => {
                         console.log(res);
                         let roleID = rolesArr.indexOf(res.role);
+                        roleID++;
                         db.query(`employees () VALUES (${res.employee}, ${roleID})`, function (err, results) {
                             console.log(" Updating employees data...")
                             console.table(results);
