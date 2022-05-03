@@ -82,8 +82,28 @@ function appMenu() {
                     })
             }
             else if (res.selectedOption === menuArr[2]) {
-                console.log("option 3");
-                appMenu();
+                inquirer
+                    .prompt([
+                        {
+                            name: 'employee',
+                            type: 'input',
+                            message: "Which employee would you like to update?",
+                        },
+                        {
+                            name: 'role',
+                            type: 'list',
+                            message: "What is the employee's new role?",
+                        },
+                    ])
+                    .then((res) => {
+                        console.log(res);
+                        db.query(`employees () VALUES (${res.employee}, ${res.role})`, function (err, results) {
+                            console.log(" updating employees data...")
+                            console.table(results);
+                            console.log("Done");
+                        });
+                        appMenu();
+                    })
             }
             else if (res.selectedOption === menuArr[3]) {
                 db.query('SELECT * FROM roles', function (err, results) {
@@ -145,7 +165,7 @@ function appMenu() {
                             console.log("Done");
                         });
                         appMenu();
-                    })
+                    });
             }
         })
 }
