@@ -36,7 +36,10 @@ function appMenu() {
                 process.exit(1);
             }
             else if (res.selectedOption === menuArr[0]) {
-                console.log("option 1");
+                db.query('SELECT employees.id, employees.first_name, employees.last_name, roles.title, department.name, roles.salary, employees.manager_id FROM employees JOIN roles ON employees.role_id = roles.id JOIN department ON roles.department_id = department.id', function (err, results) {
+                    console.log("  Pulling employees data...")
+                    console.table(results);
+                });
                 appMenu();
             }
             else if (res.selectedOption === menuArr[1]) {
@@ -48,7 +51,10 @@ function appMenu() {
                 appMenu();
             }
             else if (res.selectedOption === menuArr[3]) {
-                console.log("option 4");
+                db.query('SELECT * FROM roles', function (err, results) {
+                    console.log("  Pulling roles data...")
+                    console.table(results);
+                });
                 appMenu();
             }
             else if (res.selectedOption === menuArr[4]) {
@@ -56,7 +62,10 @@ function appMenu() {
                 appMenu();
             }
             else if (res.selectedOption === menuArr[5]) {
-                console.log("option 6");
+                db.query('SELECT * FROM department', function (err, results) {
+                    console.log("  Pulling departments data...")
+                    console.table(results);
+                });
                 appMenu();
             }
             else if (res.selectedOption === menuArr[6]) {
