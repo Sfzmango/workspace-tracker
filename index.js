@@ -60,7 +60,7 @@ function appMenu() {
                             message: "What is the employee's last name?",
                         },
                         {
-                            name: 'roleId',
+                            name: 'role',
                             type: 'list',
                             message: "What is the employee's role?",
                             choices: rolesArr
@@ -73,7 +73,8 @@ function appMenu() {
                     ])
                     .then((res) => {
                         console.log(res);
-                        db.query(`INSERT INTO employees (first_name, last_name, role_id, manager_id) VALUES (${res.firstName}, ${res.lastName}, ${res.roleId}, ${res.managerId})`, function (err, results) {
+                        let roleID = rolesArr.indexOf(res.role);
+                        db.query(`INSERT INTO employees (first_name, last_name, role_id, manager_id) VALUES (${res.firstName}, ${res.lastName}, ${roleID}, ${res.managerId})`, function (err, results) {
                             console.log("  Adding employees data...")
                             console.table(results);
                             console.log("Done");
@@ -98,7 +99,8 @@ function appMenu() {
                     ])
                     .then((res) => {
                         console.log(res);
-                        db.query(`employees () VALUES (${res.employee}, ${res.role})`, function (err, results) {
+                        let roleID = rolesArr.indexOf(res.role);
+                        db.query(`employees () VALUES (${res.employee}, ${roleID})`, function (err, results) {
                             console.log(" Updating employees data...")
                             console.table(results);
                             console.log("Done");
