@@ -1,6 +1,7 @@
 // dependencies
 const mysql = require('mysql2');
 const inquirer = require('inquirer');
+const cTable = require('console.table');
 
 // declaring PORT
 const PORT = process.env.PORT || 3001;
@@ -18,6 +19,7 @@ const db = mysql.createConnection(
 
 // options
 const menuArr = ["View All Employees", "Add Employee", "Update Employee Role", "View All Roles", "Add Role", "View All Departments", "Add Department", "Quit"];
+const rolesArr = ['Lead Front-End Dev', 'Front-End Dev', 'Lead Back-End Dev', 'Node Dev', 'Python Dev', 'Relations Manager', 'Sales', 'Social Media Manager', 'Customer Support', 'HR Manager', 'Payroll', 'Recruiting', 'Internal Affairs'];
 
 function appMenu() {
     inquirer
@@ -32,6 +34,8 @@ function appMenu() {
         .then((res) => {
             console.log(res);
             if (res.selectedOption === menuArr[7]) {
+
+                // exits the program if quit is selected
                 console.log("Thank you for using this program!");
                 process.exit(1);
             }
@@ -43,8 +47,40 @@ function appMenu() {
                 appMenu();
             }
             else if (res.selectedOption === menuArr[1]) {
-                console.log("option 2");
-                appMenu();
+                inquirer
+                    .prompt([
+                        {
+                            name: 'firstName',
+                            type: 'input',
+                            message: "What is the employee's first name?",
+                        },
+                        {
+                            name: 'lastName',
+                            type: 'input',
+                            message: "What is the employee's last name?",
+                        },
+                        {
+                            name: 'roleId',
+                            type: 'list',
+                            message: "What is the employee's role?",
+                            choices: rolesArr
+                        },
+                        {
+                            name: 'managerId',
+                            type: 'input',
+                            message: "What is the employee's manager's id? (Write 'NULL' if they are the manager)",
+                            choices: rolesArr
+                        }
+                    ])
+                    .then((res) => {
+                        console.log(res);
+                        db.query(`INSERT INTO employees (first_name, last_name, role_id, manager_id) VALUES (${res.firstName}, ${res.lastName}, ${res.roleId}, ${res.managerId})`, function (err, results) {
+                            console.log("  Adding employees data...")
+                            console.table(results);
+                            console.log("Done");
+                        });
+                        appMenu();
+                    })
             }
             else if (res.selectedOption === menuArr[2]) {
                 console.log("option 3");
@@ -76,3 +112,4 @@ function appMenu() {
 }
 
 appMenu();
+
