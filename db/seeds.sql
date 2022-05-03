@@ -6,7 +6,7 @@ VALUES ('Front-End Development'),
 ('Consumer Relations'),
 ('HR');
 
-INSERT INTO role (title, salary, department_id)
+INSERT INTO roles (title, salary, department_id)
 VALUES ('Lead Front-End Dev', 155000, 1),
 ('Front-End Dev', 135000, 1),
 ('Lead Back-End Dev', 150000, 2),
@@ -21,7 +21,7 @@ VALUES ('Lead Front-End Dev', 155000, 1),
 ('Recruiting', 65000, 4),
 ('Internal Affairs', 60000, 4);
 
-INSERT INTO employee (first_name, last_name, role_id, manager_id)
+INSERT INTO employees (first_name, last_name, role_id, manager_id)
 VALUES ('James', 'Dunn', 1, NULL),
 ('Elizabeth', 'Jules', 3, NULL),
 ('Lisa', 'Yuen', 6, NULL),
