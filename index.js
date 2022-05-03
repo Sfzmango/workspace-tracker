@@ -85,9 +85,9 @@ function appMenu() {
                 inquirer
                     .prompt([
                         {
-                            name: 'employee',
+                            name: 'employeeId',
                             type: 'input',
-                            message: "Which employee would you like to update?",
+                            message: "What is the employee id of the employee you would like to update?",
                         },
                         {
                             name: 'role',
@@ -100,9 +100,9 @@ function appMenu() {
                         console.log(res);
                         let roleID = rolesArr.indexOf(res.role);
                         roleID++;
-                        db.query(`employees () VALUES (${res.employee}, ${roleID})`, function (err, results) {
+                        console.log(roleID);
+                        db.query(`UPDATE employees SET role_id = ? WHERE id = ?`, [roleID, res.employeeId], function (err, results) {
                             console.log(" Updating employees data...")
-                            console.table(results);
                             console.log("Done");
                         });
                         appMenu();
@@ -136,7 +136,7 @@ function appMenu() {
                     ])
                     .then((res) => {
                         console.log(res);
-                        db.query(`INSERT INTO roles (title, salary, department_id) VALUES (?,?,?)`, [res.title, res.salary, res.departmentId], function (err, results) {
+                        db.query(`INSERT INTO roles(title, salary, department_id) VALUES(?,?,?)`, [res.title, res.salary, res.departmentId], function (err, results) {
                             console.log("  Adding roles data...")
                             console.log("Done");
                         });
@@ -161,7 +161,7 @@ function appMenu() {
                     ])
                     .then((res) => {
                         console.log(res);
-                        db.query(`INSERT INTO department (name) VALUES (?)`, res.name, function (err, results) {
+                        db.query(`INSERT INTO department(name) VALUES(?)`, res.name, function (err, results) {
                             console.log("  Adding departments data...")
                             console.log("Done");
                         });
