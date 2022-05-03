@@ -69,7 +69,6 @@ function appMenu() {
                             name: 'managerId',
                             type: 'input',
                             message: "What is the employee's manager's id? (Write 'NULL' if they are the manager)",
-                            choices: rolesArr
                         }
                     ])
                     .then((res) => {
