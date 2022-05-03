@@ -90,18 +90,14 @@ function appMenu() {
                             message: "What is the employee id of the employee you would like to update?",
                         },
                         {
-                            name: 'role',
-                            type: 'list',
-                            message: "What is the employee's new role?",
-                            choices: rolesArr
-                        },
+                            name: 'roleId',
+                            type: 'input',
+                            message: "What is the employee's new role id?",
+                        }
                     ])
                     .then((res) => {
                         console.log(res);
-                        let roleID = rolesArr.indexOf(res.role);
-                        roleID++;
-                        console.log(roleID);
-                        db.query(`UPDATE employees SET role_id = ? WHERE id = ?`, [roleID, res.employeeId], function (err, results) {
+                        db.query(`UPDATE employees SET role_id = ? WHERE id = ?`, [res.roleId, res.employeeId], function (err, results) {
                             console.log(" Updating employees data...")
                             console.log("Done");
                         });
