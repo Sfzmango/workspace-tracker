@@ -73,7 +73,7 @@ function appMenu() {
                     .then((res) => {
                         console.log(res);
                         let roleID = rolesArr.indexOf(res.role);
-                        db.query(`INSERT INTO employees (first_name, last_name, role_id, manager_id) VALUES (${res.firstName}, ${res.lastName}, ${roleID}, ${res.managerId})`, function (err, results) {
+                        db.query(`INSERT INTO employees (first_name, last_name, role_id, manager_id) VALUES (?,?,?,?)`, [res.firstName, res.lastName, roleID, res.managerId], function (err, results) {
                             console.log("  Adding employees data...")
                             console.table(results);
                             console.log("Done");
@@ -135,9 +135,8 @@ function appMenu() {
                     ])
                     .then((res) => {
                         console.log(res);
-                        db.query(`INSERT INTO roles (title, salary, department_id) VALUES (${res.title}, ${res.salary}, ${res.departmentId})`, function (err, results) {
+                        db.query(`INSERT INTO roles (title, salary, department_id) VALUES (?,?,?)`, [res.title, res.salary, res.departmentId], function (err, results) {
                             console.log("  Adding roles data...")
-                            console.table(results);
                             console.log("Done");
                         });
                         appMenu();
@@ -161,9 +160,8 @@ function appMenu() {
                     ])
                     .then((res) => {
                         console.log(res);
-                        db.query(`INSERT INTO department (name) VALUES (${res.name})`, function (err, results) {
+                        db.query(`INSERT INTO department (name) VALUES (?)`, res.name, function (err, results) {
                             console.log("  Adding departments data...")
-                            console.table(results);
                             console.log("Done");
                         });
                         appMenu();
