@@ -1,7 +1,6 @@
 // dependencies
 const mysql = require('mysql2');
 const inquirer = require('inquirer');
-const cTable = require('console.table');
 
 // declaring PORT
 const PORT = process.env.PORT || 3001;
