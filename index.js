@@ -93,8 +93,33 @@ function appMenu() {
                 appMenu();
             }
             else if (res.selectedOption === menuArr[4]) {
-                console.log("option 5");
-                appMenu();
+                inquirer
+                    .prompt([
+                        {
+                            name: 'title',
+                            type: 'input',
+                            message: "What is the role's title?",
+                        },
+                        {
+                            name: 'salary',
+                            type: 'input',
+                            message: "What is the role's salary?",
+                        },
+                        {
+                            name: 'departmentId',
+                            type: 'input',
+                            message: "What is the role's department id?",
+                        }
+                    ])
+                    .then((res) => {
+                        console.log(res);
+                        db.query(`INSERT INTO roles (title, salary, department_id) VALUES (${res.title}, ${res.salary}, ${res.departmentId})`, function (err, results) {
+                            console.log("  Adding roles data...")
+                            console.table(results);
+                            console.log("Done");
+                        });
+                        appMenu();
+                    })
             }
             else if (res.selectedOption === menuArr[5]) {
                 db.query('SELECT * FROM department', function (err, results) {
