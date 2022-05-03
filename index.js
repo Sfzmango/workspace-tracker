@@ -129,8 +129,23 @@ function appMenu() {
                 appMenu();
             }
             else if (res.selectedOption === menuArr[6]) {
-                console.log("option 7");
-                appMenu();
+                inquirer
+                    .prompt([
+                        {
+                            name: 'name',
+                            type: 'input',
+                            message: "What is the department's name?",
+                        }
+                    ])
+                    .then((res) => {
+                        console.log(res);
+                        db.query(`INSERT INTO department (name) VALUES (${res.name})`, function (err, results) {
+                            console.log("  Adding departments data...")
+                            console.table(results);
+                            console.log("Done");
+                        });
+                        appMenu();
+                    })
             }
         })
 }
